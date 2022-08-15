@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<style>
+    img{
+      border-radius: 100%;
+    }
+</style>
+
+<div class="container">
+    <h4>{{ profile_list.all.count }} User(s)</h4>
+    {% for profile in profile_list %}
+        <div class="row justify-content-center mt-3">
+            <div class="col-md-5 col-sm-12 border-bottom position-relative">
+                <img src="{{ profile.image.url }}" width="100" height="100">
+                <a class="account-heading">{{ profile.user }}</a>
+                <p class="text-secondary">{{ profile.user.email }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

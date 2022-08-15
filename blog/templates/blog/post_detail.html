@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% block content %}
+                <style>
+                    img {
+                      border-radius: 100%;
+                    }
+                    p.eb1 {
+                      border: 2px solid CornflowerBlue;
+                      border-radius: 15px;
+                      padding-right: 40px;
+                      padding-left: 10px;
+                      white-space: pre-line;
+                    }
+                    p.eb2 {
+                      border: 2px solid CornflowerBlue;
+                      border-radius: 15px;
+                      height: 1px;
+                      }
+                    p.eb3 {
+                      padding-left: 30px;
+                      white-space: pre-line;
+                    }
+                </style>
+        <article class="media content-section" style="padding: 10px 28px;">
+            <img src="{{ object.author.profile.image.url }}" width="150" height="150">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+                    <small class="text-muted">{{ object.date_posted}}</small>
+                    {% if object.author == user %}
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+                    {% endif %}
+                </div>
+                <h3 class="article-title" style="color:black">{{ object.title }}</h3>
+                <p class="eb1">{{ object.content }}</p>
+                <p class="eb1">BY: {{ object.by }}</p>
+                <!--<div style="white-space: pre-line padding-left:10px;">
+                    <h4 class="">Resources:</h4>
+                    <p style="white-space: pre-line padding-right:1000px;">{{ object.resources }}</p>
+                </div> -->
+
+
+            </div>
+            <br><br>
+            <p class="eb2"></p>
+            <h4 style="color:blue"><span>{{ reviews_count }}</span> Reviews and Comments</h4>
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'reviews' object.id %}">Comment</a>
+            <br>
+
+            {% if not post.reviews.all %}
+                <a href="{% url 'reviews' object.id %}">Be first to comment</a>
+            {% else %}
+            <br>
+                {% for review in post.reviews.all %}
+                    <img src="{{ review.reviewer.profile.image.url }}" width="30" height="30">
+                    <a class="mr-2" href="{% url 'user-posts' review.reviewer %}">{{ review.reviewer }}</a>
+                    <small class="text-muted">{{ review.date_commented }}</small>
+                    {% if review.reviewer == user %}
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'review-delete' review.id %}"></a>
+                    {% endif %}
+                        <p class="eb3">{{ review.content }}</p>
+                {% endfor %}
+            {% endif %}
+        </article>
+{% endblock content %}

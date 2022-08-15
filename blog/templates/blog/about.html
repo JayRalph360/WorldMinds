@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog.main.css' %}">
+
+    {% if title %}
+    <title>Worlds - {{ title }}</title>
+    {% else %}
+    <title>Worlds</title>
+    {% endif %}
+</head>
+
+<STYLE>A {text-decoration: none;} </STYLE>
+
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+</style>
+
+
+<body>
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">WORLD MINDS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'blog-home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'blog-about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">|</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                        <a class="nav-link active" aria-current="page" href="{% url 'post-create' %}">New Post</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">Profile</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Membership
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Sign Up</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">LogIn</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><p class="dropdown-item">Hello World 😀🌏</p></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+                    </li>
+                </ul>
+                <form class="d-flex" method="GET" action="{% url 'profile-search' %}">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input class="form-control me-2" type="text" placeholder="Username" aria-label="Username"
+                           name="query" value="{{ request.GET.query }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<main>
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'blog/images/leaves.jpg' %}" class="bd-placeholder-img" width="1380" height="500"
+                    style="background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5));">
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1 style="color:Tomato; font-family: Nunito Sans, Open Sans, helvetica neue, helvetica, arial, sans-serif;">World Minds.</h1>
+                        <p class="lead">
+                            From a stunning first sentence to a perfect string of dialogue, there are certain parts of
+                            books that feel particularly memorable. And whether they make us laugh, cry, or simply
+                            reflect, these quotable lines have a habit of sticking with us long after we turn the final
+                            page.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'blog/images/way.jpg' %}" class="bd-placeholder-img" width="1380" height="500"
+                    style="background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5));">
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="color:tomato; font-family: Nunito Sans, Open Sans, helvetica neue, helvetica, arial, sans-serif;">The Road Not Taken</h1>
+                        <p class="lead">
+                            I shall be telling this with a sigh
+                            Somewhere ages and ages hence:
+                            Two roads diverged in a wood, and I—
+                            I took the one less traveled by,
+                            And that has made all the difference.
+                            <p class="float-end" style="color:Tomato">BY ROBERT FROST</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'blog/images/lapy.jpg' %}" class="bd-placeholder-img" width="1380" height="500"
+                    style="background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5));">
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1 style="color:sandybrown; font-family: Nunito Sans, Open Sans, helvetica neue, helvetica, arial, sans-serif;">One more for good measure.</h1>
+                        <p class="lead" style="font-size:18px">
+                            Most of us enjoy a good read, whether it is a novel that moves us to tears, a play that
+                            intrigues or a poem that rouses our passions, a piece of well-written literature can have
+                            an impact on our emotions, on our behaviour and on our value-systems.
+                            There are specific quotes however, that stay with us. These can be useful in a variety of situations; from
+                            quiz to job interview, being or appearing to be well read can hold you in good stead.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4" style="margin-top: 60px; margin-bottom: 60px; text-align: center;">
+                <img src="{% static 'blog/images/vision.jpg' %}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+                <h2 style="color:blue;">Our Vision</h2>
+                <p class="lead">
+                    World minds is a stunning global social media platform that provides those who have
+                    inordinate taste for literature the forum to express their ingenuity through business minds,
+                    divine intellect and literature ranging from classics, romance, comedy etc.
+                </p>
+                <p>
+                    <a class="btn btn-primary" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">&raquo;</a>
+                </p>
+            </div><!-- /.col-lg-4 -->
+
+            <div class="col-lg-4" style="margin-top: 60px; margin-bottom: 60px;text-align: center;">
+                <img src="{% static 'blog/images/mission.jpg' %}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+                <h2 style="color:blue;">Our Mission</h2>
+                <p class="lead">
+                    It’s one thing to read a great book, but quite another to retain it.
+                    Get inspired by the world’s most recognized quotes and stories – and make sure to read or re-read the resources
+                    they come from.
+                </p>
+                <p><a class="btn btn-primary" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">&raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+
+            <div class="col-lg-4" style="margin-top: 60px; margin-bottom: 60px; text-align: center;">
+                <img src="{% static 'blog/images/values.jpg' %}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+
+                <h2 style="color:blue;">Our Values</h2>
+                <p class="lead">
+                    At core of our existence we uphold our integrity and support ourselves by getting inspired by the deep messages we post.
+                    Relationships are at the heart of our world.
+                    Therefore, we stay polite and console each other with a warning heart.
+                </p>
+                <p><a class="btn btn-primary" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">&raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette" style="margin-top: 60px; margin-bottom: 60px;">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Inspirational Literary Quotes. <span
+                        class="text-muted"> From time to time,</span></h2>
+                <p class="lead">We all need a motivational boost. Sometimes we need to enthuse those around us. There is nothing more effective in these
+                    situations than a well-chosen inspirational quote from literature.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'blog/images/literature.jpg' %}" class="bd-placeholder-img bd-placeholder-img-lg
+                    featurette-image img-fluid mx-auto rounded-circle" width="300"
+                     height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette" style="margin-top: 60px; margin-bottom: 60px;">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading" style="color:Tomato;">Romantic Literary Quotes.
+                    <span class="text-muted">If you have ever been in a romantic situation,</span></h2>
+                <p class="lead">Where you want to say exactly the right thing, but find yourself tongue-tied, you might
+                    like to choose from this section of romantic literary offerings..</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="{% static 'blog/images/romance.jpg' %}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto rounded-circle" width="300"
+                     height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette" style="margin-top: 60px; margin-bottom: 60px;">
+            <div class="col-md-7">
+                <h2 class="featurette-heading" style="color:DarkGoldenRod;">Literary Quotes for Business.
+                    <span class="text-muted">The business world can be overwhelming.</span>
+                </h2>
+                <p class="lead">You are bound to have days when you wonder whether the results are worth the effort.
+                    If this sounds like you, if you are struggling for a bit of  motivation or if you need to give some
+                    sound advice, join us today.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="{% static 'blog/images/buss.jpg' %}" class="bd-placeholder-img bd-placeholder-img-lg
+                featurette-image img-fluid mx-auto rounded-circle" width="400"
+                     height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette" style="margin-top: 60px; margin-bottom: 60px;">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading" style="color:CornflowerBlue;">The Meaning of Life. <span
+                        class="text-muted">Understanding the meaning of life</span></h2>
+                <p class="lead">Is a quest that has occupied mankind from time immemorial. We are not suggesting
+                    that we know all the answers, but here are a few famous quotes from literature that might offer
+                    a decent meal for thought.
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="{% static 'blog/images/cappuccino.jpg' %}" class="bd-placeholder-img bd-placeholder-img-lg
+                featurette-image img-fluid mx-auto rounded-circle" width="360"
+                     height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+
+            </div>
+        </div>
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+
+    <div class="container marketing">
+
+        <!-- Two columns of text below the FEATURETTES  -->
+        <div class="row">
+            <div class="col-lg-4" style="margin-top: 60px; margin-bottom: 60px; text-align: center;">
+                <img src="{% static 'blog/images/question.jpg' %}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+                <h2 style="color:Tan;">By: Frank Herbert </h2>
+                <p class="lead">
+                    I must not fear.
+                    Fear is the mind-killer.
+                    Fear is a little-death that brings total obliteration.
+                    I will face my fear. I will permit it to pass over me and through me.
+                    And when it has gone past I will turn the inner eye to see its path.
+                    Where the fear has gone there will be nothing.
+                    Only I will remain.
+                    <h3 style="color:DarkGoldenRod">For</h3>
+                    <p class="lead">Not everyone can become a great artist, but a great artist can come from anywhere.</p>
+                    <p class="lead" style="color:DarkGoldenRod; margin-right:0px;">Anton Ego (The voice of Pete O'Toole. From the studio that produced Ratatouille.)</p>
+                <p>
+                    <a class="btn btn-outline-warning" style="color:DarkGoldenRod; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                        Are You Going Through A Situation?
+                        If you want a request, piece of advice, a quote for the moment.
+                        Don't forget to tag the title with
+                        "**Request: ...."
+                        You'll be helped by someone just coming out of that situation.
+                        &raquo;
+                    </a>
+                </p>
+            </div><!-- /.col-lg-4 -->
+
+            <div class="col-lg-4" style="margin-top: 60px; margin-bottom: 60px; text-align: center;">
+                <img src="{% static 'blog/images/ralph.png' %}" class="bd-placeholder-img rounded-circle" width="140" height="140"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                     preserveAspectRatio="xMidYMid slice" focusable="false">
+
+                <h2 style="color:Tan;">Message From the Founder</h2>
+                <p class="lead">
+                    The world of literature is full of inspirational, moving and funny quotes. We hope that you have
+                    enjoyed our world and that you find it useful.
+                    If any of them have had an impact on you, why not try reading the whole book, poem or play.
+                    There is a wealth of literary excellence out there, let us know if you try one of these books after
+                    reading a quote from it.
+                </p>
+                <h2 class="lead" style="color:DarkGoldenRod;">Raphael Oko Okai</h2>
+                <p>
+                    <a class="btn btn-outline-warning" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                        Enjoy Your Stay
+                    </a>
+                </p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+
+<br><br>
+<h1 style="text-align: center;">Gratitude To</h1>
+    <h5 style="color:Tan; text-align: center;">The Almighty who has brought us this far. To Everyone here and those that believe in themselves.</h5>
+
+<footer class="container py-5 ">
+    <div class="row">
+
+        <div class="col-6 col-md">
+            <h5 style="color:DarkGoldenRod;">Tutors</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Corey M Schafer(Master)</a></li>
+                <li><a class="link-secondary">Eric Matthes(Author: Python crash course)</a></li>
+                <li><a class="link-secondary">Mosh(Founder: Code with Mosh)</a></li>
+                <li><a class="link-secondary">Tim Ruscica(Founder: Tech with Tim)</a></li>
+                <li><a class="link-secondary">Al Sweigart(Author: Automating the boring stuff)</a></li>
+                <li><a class="link-secondary">And all the India tutorial guys</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5 style="color:DarkGoldenRod;">Families</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Freda Kwardey (Mom, Thank for the laptop)</a></li>
+                <li><a class="link-secondary">Johnson Antwi(Co-Founder)</a></li>
+                <li><a class="link-secondary">Uncle Dan(Thank you for the wifi)</a></li>
+                <li><a class="link-secondary">Racheal Okai(Twin sis)</a></li>
+                <li><a class="link-secondary">Fredrica Okai Antwi(Big sis)</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5 style="color:DarkGoldenRod;">Friends</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Sly(From first day in development to the final day in production, has been with me since to stare at the screen. Thanks for being there.)</a></li>
+                <li><a class="link-secondary">Jerry</a></li>
+                <li><a class="link-secondary">Emmanuel Agudey</a></li>
+                <li><a class="link-secondary">Caspino</a></li>
+                <li><a class="link-secondary">Linton</a></li>
+                <li><a class="link-secondary">Isaac Addo</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5 style="color:DarkGoldenRod;">Inspirations</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Rolf Dobelli(Founder World.Minds)</a></li>
+                <li><a class="link-secondary">John Lasseter(Director: Pixar)</a></li>
+                <li><a class="link-secondary">Ernest Cling(Author: Ready player one)</a></li>
+                <li><a class="link-secondary">Indie Developers</a></li>
+                <li><a class="link-secondary">Jandeep Singh</a></li>
+                <li><a class="link-secondary">Carla Woolf</a></li>
+                <li><a class="link-secondary">To those changed the world for better</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5 style="color:DarkGoldenRod;">In Loving Memory Of</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Sir Raphael A Okai(Dad)</a></li>
+                <li><a class="link-secondary">Newton</a></li>
+                <li><a class="link-secondary">Einstein</a></li>
+                <li><a class="link-secondary">Steve Jobs</a></li>
+                <li><a class="link-secondary">Ludwig van Beethoven</a></li>
+                <li><a class="link-secondary">Aaron Swartz</a></li>
+                <li><a class="link-secondary">Tesla</a></li>
+                <li><a class="link-secondary">Alfred Noble</a></li>
+            </ul>
+        </div>
+    </div>
+    <h5 style="color:Tan; text-align: center;">And the list still continues including you, my LinkedIn networks, Qoura societies, Stackoverflow and Everyone here.</h5>
+</footer>
+    <p class="text-muted" style="text-align: center;"><a href="">For any Feedback Contact:</a> jayralph360@gmail.com</p>
+</main>
+<br>
+
+<hr>
+    <!-- FOOTER -->
+<footer class="container py-5 ">
+    <div class="row">
+        <div class="col-12 col-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img"
+                 viewBox="0 0 24 24"><title>Product</title>
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
+            </svg>
+            <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Management</a></li>
+                <li><a class="link-secondary">Team</a></li>
+                <li><a class="link-secondary">Developers</a></li>
+                <li><a class="link-secondary">Architect</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Resource name</a></li>
+                <li><a class="link-secondary">Resource</a></li>
+                <li><a class="link-secondary">Another resource</a></li>
+                <li><a class="link-secondary">Final resource</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Business</a></li>
+                <li><a class="link-secondary">Education</a></li>
+                <li><a class="link-secondary">Government</a></li>
+                <li><a class="link-secondary">Gaming</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>About Us</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="link-secondary">Company</a></li>
+                <li><a class="link-secondary">Career</a></li>
+                <li><a class="link-secondary">Location</a></li>
+                <li><a class="link-secondary">Terms & Privacy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+-->
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+</body>
+</html>
